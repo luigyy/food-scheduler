@@ -8,7 +8,7 @@ const ReadQR: React.FC<ReadQRProps> = ({}) => {
     <div>
       ReadQR
       {/* this div styles the camera  */}
-      <div className="w-1/3 min-w-[280px] h-full mx-auto border-8 border-red-500">
+      <div className="w-1/3 min-w-[280px] h-full mx-auto ">
         <QrcodeReader />
       </div>
     </div>

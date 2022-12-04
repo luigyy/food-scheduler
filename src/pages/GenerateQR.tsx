@@ -1,15 +1,14 @@
 import React from "react";
 import Qrcode from "../components/Qrcode";
 
-interface CreateQRProps {}
+interface GenerateQRProps {}
 
-const CreateQR: React.FC<CreateQRProps> = ({}) => {
+const GenerateQR: React.FC<GenerateQRProps> = ({}) => {
   return (
     <div>
-      CreateQR
       <Qrcode payload="hello world" />
     </div>
   );
 };
 
-export default CreateQR;
+export default GenerateQR;

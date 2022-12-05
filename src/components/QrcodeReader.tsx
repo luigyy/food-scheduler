@@ -47,7 +47,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
             className="btn m-1 md:flex md:justify-around md:w-44"
           >
             <span> Select camera</span>{" "}
-            <span className="hidden md:visible">
+            <span className="hidden md:inline">
               {" "}
               <BsFillCameraVideoFill />
             </span>
@@ -57,10 +57,10 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
             className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 "
           >
             <li onClick={(e) => setSelected("enviroment")}>
-              <a>Enviroment</a>
+              <a>Back Camera</a>
             </li>
             <li value={"user"} onClick={(e) => setSelected("user")}>
-              <a>User</a>
+              <a>Front Camera</a>
             </li>
           </ul>
         </div>
@@ -88,7 +88,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
         </>
       )}
       {loadingScan && <p>Loading</p>}
-      {<p>{data | "No data yet"} </p>}
+      {data !== "" && <p>{data}</p>}
     </div>
   );
 };

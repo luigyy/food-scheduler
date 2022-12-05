@@ -6,7 +6,6 @@ interface ReadQRProps {}
 const ReadQR: React.FC<ReadQRProps> = ({}) => {
   return (
     <div>
-      ReadQR
       {/* this div styles the camera  */}
       <div className="w-1/3 min-w-[280px] h-full mx-auto ">
         <QrcodeReader />

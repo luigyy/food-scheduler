@@ -12,6 +12,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
   const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
+
   const [data, setData] = useState("");
 
   const handleScan = async (scanData) => {
@@ -33,7 +34,9 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
       <div className="flex items-center justify-around">
         <div className="text-center p-5">
           <button
-            className={`btn ${startScan ? "btn-secondary" : "btn-primary"}`}
+            className={`btn text-2xl ${
+              startScan ? "btn-secondary" : "btn-primary"
+            }`}
             onClick={() => {
               setStartScan(!startScan);
             }}
@@ -46,7 +49,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
             tabIndex={0}
             className="btn m-1 md:flex md:justify-around md:w-44"
           >
-            <span> Select camera</span>{" "}
+            <span className=""> Select camera</span>{" "}
             <span className="hidden md:inline">
               {" "}
               <BsFillCameraVideoFill />

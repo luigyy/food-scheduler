@@ -5,17 +5,17 @@ interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
-    <div>
+    <div className="">
       <div className="flex justify-around navbar bg-neutral text-neutral-content px-24">
-        <a className="btn btn-ghost normal-case -tracking-widest text-2xl">
+        <a className="btn btn-ghost normal-case -tracking-widest text-lg md:text-2xl">
           Food Scheduler
         </a>
-        <div className="space-x-5">
+        <div className="space-x-5 ">
           <Link to="/readqr">
-            <button> Read QR</button>
+            <button className="text-sm md:text-base"> ReadQR</button>
           </Link>
           <Link to="/users">
-            <button> Users </button>
+            <button className="text-sm md:text-base"> Users </button>
           </Link>
         </div>
       </div>

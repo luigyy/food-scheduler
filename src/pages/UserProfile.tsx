@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import UserInterface from "../Interfaces/UserInterface";
+import Qrcode from "../components/Qrcode";
+import QRCode from "react-qr-code";
 
 const URL = "http://localhost:5000/getuserbyid/";
 const PROFILE_IMAGE_PLACEHOLDER =
@@ -24,27 +26,30 @@ const UserProfile: React.FC<UserProfileProps> = ({}) => {
       navigate("/users/searchuser");
     });
   }, []);
-
+  //payload to generate qr
+  const payload = { _id: id };
   return (
-    <div>
-      <div className=" flex justify-around border-8 border-red-500 h-[calc(100vh-100px)] w-[80%] max-w-[600px] mx-auto mt-2">
-        <div>
-          <img
-            className="h-1/3 p-4"
-            src={user?.imgURL ? user.imgURL : PROFILE_IMAGE_PLACEHOLDER}
-            alt=""
-          />
-        </div>
-        <div className="">
-          <h1 className="mt-16 mr-8 md:mr-14">
-            <span className="font-semibold">Name:</span> {user?.name}{" "}
-            {user?.lastName}
+    <div className=" flex flex-wrap bg-secondary h-[calc(100vh-100px)] w-[80%] max-w-[600px] mx-auto mt-2">
+      <div className="flex justify-around w-full h-1/2 ">
+        <img
+          className="w-1/3 p-5 object-contain"
+          src={user?.imgURL ? user.imgURL : PROFILE_IMAGE_PLACEHOLDER}
+          alt=""
+        />
+        <div className="mt-20 mr-12">
+          <h1 className="p-2">
+            <span className="font-bold">Name: </span>
+            {user?.name} {user?.lastName}
           </h1>
-          <h1>
+          <h1 className="p-2">
             {" "}
-            <span className="font-semibold">Email:</span> {user?.email}
+            <span className="font-bold">Email:</span> {user?.email}
           </h1>
         </div>
+      </div>
+      <div className=" flex justify-center w-full h-1/2">
+        {/* @ts-ignore */}
+        <Qrcode payload={payload} size={150} />
       </div>
     </div>
   );

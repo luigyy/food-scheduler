@@ -3,13 +3,14 @@ import QRcode from "react-qr-code";
 
 interface QrcodeProps {
   payload: string;
+  size: number;
 }
 
-const Qrcode: React.FC<QrcodeProps> = ({ payload }) => {
+const Qrcode: React.FC<QrcodeProps> = ({ payload, size }) => {
   return (
-    <div className="p-16 bg-white">
+    <div className="p-10 mb-5 bg-white">
       <div>
-        <QRcode size={256} value={payload} />
+        <QRcode size={size} value={payload} />
       </div>
     </div>
   );

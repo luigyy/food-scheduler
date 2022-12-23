@@ -1,20 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import UserBadge from "../components/UserBadge";
+import UserInterface from "../Interfaces/UserInterface";
 
 interface SearchUserProps {}
 
-const URL = "http://localhost:5000/getuserbyname";
+const URL = "http://localhost:5000/getuserbyname/";
 
-interface Users {
-  _id: any;
-  name: string;
-  lastName: string;
-  email: string;
-}
 const SearchUser: React.FC<SearchUserProps> = ({}) => {
   const [name, setName] = useState<string>();
-  const [users, setUsers] = useState<Users[]>();
+  const [users, setUsers] = useState<UserInterface[]>();
 
   //handle errors
   const [error, setError] = useState<string | boolean>();
@@ -22,7 +18,7 @@ const SearchUser: React.FC<SearchUserProps> = ({}) => {
   //get users
   const getUsersByName = (name: any): void => {
     axios
-      .get(URL, { params: { name } })
+      .get(URL + name)
       .then((res) => {
         setUsers(res.data.data.userData);
         setError(false);
@@ -72,9 +68,19 @@ const SearchUser: React.FC<SearchUserProps> = ({}) => {
         </div>
       </div>
       {/* search bar */}
-      {users?.map((user) => (
-        <span>{user.name}</span>
-      ))}
+      <div className="h-[calc(100vh-200px)] border-8 border-red-500 overflow-y-scroll w-[80%] mx-auto">
+        {users?.map((user, index) => (
+          <>
+            <UserBadge
+              key={user.email}
+              id={user._id}
+              name={user.name}
+              lastName={user.lastName}
+              email={user.email}
+            />
+          </>
+        ))}
+      </div>
     </div>
   );
 };

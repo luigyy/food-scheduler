@@ -68,7 +68,7 @@ const SearchUser: React.FC<SearchUserProps> = ({}) => {
         </div>
       </div>
       {/* search bar */}
-      <div className="h-[calc(100vh-200px)] border-8 border-red-500 overflow-y-scroll w-[80%] mx-auto">
+      <div className="h-[calc(100vh-200px)]  overflow-y-scroll w-[80%] mx-auto">
         {users?.map((user, index) => (
           <>
             <UserBadge

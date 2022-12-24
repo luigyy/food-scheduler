@@ -5,6 +5,7 @@ import React from "react";
 import QrReader from "react-qr-reader";
 import { useState } from "react";
 import { BsFillCameraVideoFill } from "react-icons/bs";
+import Error from "./Error";
 
 interface QrcodeReaderProps {}
 
@@ -15,10 +16,12 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
 
   const [data, setData] = useState("");
 
+  const [error, setError] = useState("");
+
   const handleScan = async (scanData) => {
-    setLoadingScan(true);
     console.log(`loaded data data`, scanData);
     if (scanData && scanData !== "") {
+      handleSuccess();
       console.log(`loaded >>>`, scanData);
       setData(scanData);
       setStartScan(false);
@@ -26,19 +29,32 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
       // setPrecScan(scanData);
     }
   };
-  const handleError = (err) => {
-    console.error(err);
+  const handleError = () => {
+    setError("Error while scanning code");
   };
+
+  const handleSuccess = async () => {
+    //check if data object contains _id field
+    const _id = data._id || null;
+    if (!_id) {
+      return setError("Invalid code. Code must contain proper user data");
+    }
+    //data contains user id
+    //check if its a valid id in db
+    //TODO
+  };
+  //
   return (
     <div>
       <div className="flex items-center justify-around">
         <div className="text-center p-5">
           <button
-            className={`btn text-2xl ${
-              startScan ? "btn-secondary" : "btn-primary"
-            }`}
+            className={`btn  ${startScan ? "btn-secondary" : "btn-primary"}`}
             onClick={() => {
               setStartScan(!startScan);
+              setLoadingScan(!loadingScan);
+              setData("");
+              setError("");
             }}
           >
             {startScan ? "Stop Scan" : "Start Scan"}
@@ -68,7 +84,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
           </ul>
         </div>
       </div>
-      {startScan && (
+      {startScan ? (
         <>
           {/* <div className="text-center">
             <ul
@@ -89,9 +105,16 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
             />
           </div>
         </>
+      ) : (
+        <h1 className="w-full pt-32 text-center text-3xl text-neutral font-bold">
+          {" "}
+          Press "start scan" to open your camera and start scanning your users
+          QR code !
+        </h1>
       )}
       {loadingScan && <p>Loading</p>}
       {data !== "" && <p>{data}</p>}
+      {error && error.length !== 0 ? <Error text={error} /> : ""}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import SearchUser from "./pages/SearchUser";
 import CreateUser from "./pages/CreateUser";
 import Navbar from "./components/Navbar";
 import UserProfile from "./pages/UserProfile";
+import Main from "./pages/Main";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/users/searchuser" element={<SearchUser />} />
         <Route path="/users/searchbyid/:id" element={<UserProfile />} />
         <Route path="/readqr" element={<ReadQR />} />
+        <Route path="/" element={<Main />} />
       </Routes>
       {/* <CreateQR /> */}
     </div>

@@ -7,9 +7,11 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
     <div className="">
       <div className="flex justify-around navbar bg-neutral text-neutral-content px-24">
-        <a className="btn btn-ghost normal-case -tracking-widest text-lg md:text-2xl">
-          Food Scheduler
-        </a>
+        <Link to="/">
+          <a className="btn btn-ghost normal-case -tracking-widest text-lg md:text-2xl">
+            Food Scheduler
+          </a>
+        </Link>
         <div className="space-x-5 ">
           <Link to="/readqr">
             <button className="text-sm md:text-base"> ReadQR</button>

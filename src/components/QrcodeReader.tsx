@@ -14,6 +14,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
   const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
+  const [meal, setMeal] = useState<"First" | "Second" | null>(null);
 
   const [data, setData] = useState("");
 
@@ -53,6 +54,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
           <button
             className={`btn  ${startScan ? "btn-secondary" : "btn-primary"}`}
             onClick={() => {
+              if (!meal) return setError("You must select a meal time");
               setStartScan(!startScan);
               setLoadingScan(!loadingScan);
               setData("");
@@ -115,10 +117,39 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
             <span className="text-4xl text-gray-400 text-semibold"> ?</span>
           </h1>
           <div className="mx-auto flex flex-wrap justify-around  text-center w-[60%] text-3xl text-neutral font-bold">
-            <button className="btn btn-accent m-2 text-2xl">First meal</button>
-            <button className="btn btn-accent m-2 text-2xl ">
-              Second meal
-            </button>
+            <div className="flex flex-col">
+              <button
+                onClick={() => {
+                  setMeal("First");
+                  setError("");
+                }}
+                className={`btn btn-accent m-2 text-2xl ${
+                  meal === "First" ? "bg-red-400 hover:bg-red-500" : ""
+                }`}
+              >
+                First meal
+              </button>
+
+              <h1 className="text-lg font-normal italic text-red-500 tracking-wide">
+                {meal === "First" ? "Selected" : ""}
+              </h1>
+            </div>
+            <div className="flex flex-col">
+              <button
+                onClick={() => {
+                  setMeal("Second");
+                  setError("");
+                }}
+                className={`btn btn-accent m-2 text-2xl ${
+                  meal === "Second" ? "bg-red-400 hover:bg-red-500" : ""
+                }`}
+              >
+                Second meal
+              </button>
+              <h1 className="text-lg font-normal italic text-red-500 tracking-wide">
+                {meal === "Second" ? "Selected" : ""}
+              </h1>
+            </div>
           </div>
         </div>
       )}

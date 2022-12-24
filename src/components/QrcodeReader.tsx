@@ -2,7 +2,7 @@
 //could manage to get @types/react-qr-reader working properly
 
 import React from "react";
-import { QrReader } from "react-qr-reader";
+import QrReader from "react-qr-reader";
 import { useState } from "react";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 

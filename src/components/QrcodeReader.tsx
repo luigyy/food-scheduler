@@ -6,6 +6,7 @@ import QrReader from "react-qr-reader";
 import { useState } from "react";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import Error from "./Error";
+import Loading from "./Loading";
 
 interface QrcodeReaderProps {}
 
@@ -45,8 +46,9 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
   };
   //
   return (
-    <div>
-      <div className="flex items-center justify-around">
+    <div className="">
+      {/* top buttons  */}
+      <div className="w-[60%] flex items-center mx-auto justify-around">
         <div className="text-center p-5">
           <button
             className={`btn  ${startScan ? "btn-secondary" : "btn-primary"}`}
@@ -84,6 +86,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
           </ul>
         </div>
       </div>
+      {/* top buttons  */}
       {startScan ? (
         <>
           {/* <div className="text-center">
@@ -95,7 +98,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
               <li value={"user"}>Front Camera</li>
             </ul>
           </div> */}
-          <div>
+          <div className="w-1/4 min-w-[280px] max-h-full mx-auto ">
             <QrReader
               facingMode={selected}
               delay={1000}
@@ -106,14 +109,25 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
           </div>
         </>
       ) : (
-        <h1 className="w-full pt-32 text-center text-3xl text-neutral font-bold">
-          {" "}
-          Press "start scan" to open your camera and start scanning your users
-          QR code !
-        </h1>
+        <div className="md:pt-32 pt-20 ">
+          <h1 className="pb-10 text-center text-3xl text-neutral font-bold">
+            Which meal are you scanning for
+            <span className="text-4xl text-gray-400 text-semibold"> ?</span>
+          </h1>
+          <div className="mx-auto flex flex-wrap justify-around  text-center w-[60%] text-3xl text-neutral font-bold">
+            <button className="btn btn-accent m-2 text-2xl">First meal</button>
+            <button className="btn btn-accent m-2 text-2xl ">
+              Second meal
+            </button>
+          </div>
+        </div>
       )}
-      {loadingScan && <p>Loading</p>}
-      {data !== "" && <p>{data}</p>}
+      {loadingScan && (
+        <p className="mx-auto text-center pt-5">
+          <Loading text="Scanning" />
+        </p>
+      )}
+      {data !== "" ? <p className="">{data}</p> : ""}
       {error && error.length !== 0 ? <Error text={error} /> : ""}
     </div>
   );

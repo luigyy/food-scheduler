@@ -6,7 +6,7 @@ interface NavbarProps {}
 const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
     <div className="">
-      <div className="flex justify-around navbar bg-neutral text-neutral-content px-24">
+      <div className="flex justify-around navbar bg-neutral text-neutral-content md:px-24">
         <Link to="/">
           <a className="btn btn-ghost normal-case -tracking-widest text-lg md:text-2xl">
             Food Scheduler

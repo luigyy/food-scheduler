@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import UserInterface from "../Interfaces/UserInterface";
 import Qrcode from "../components/Qrcode";
-import QRCode from "react-qr-code";
+import Success from "../components/Success";
 
 const URL = "http://localhost:5000/getuserbyid/";
 const PROFILE_IMAGE_PLACEHOLDER =
@@ -12,9 +12,11 @@ const PROFILE_IMAGE_PLACEHOLDER =
 interface UserProfileProps {}
 
 const UserProfile: React.FC<UserProfileProps> = ({}) => {
-  const navigate = useNavigate();
   const [user, setUser] = useState<UserInterface>();
+  //
+  const navigate = useNavigate();
   const { id } = useParams();
+  //
 
   //get user from db
   useEffect(() => {
@@ -26,10 +28,11 @@ const UserProfile: React.FC<UserProfileProps> = ({}) => {
       navigate("/users/searchuser");
     });
   }, []);
+
   //payload to generate qr
-  const payload = { _id: id };
+  const payload = "id : " + id;
   return (
-    <div className=" flex flex-wrap bg-secondary h-[calc(100vh-100px)] w-[80%] max-w-[600px] mx-auto mt-2">
+    <div className=" flex flex-wrap bg-secondary h-[calc(100vh-70px)] w-[80%] max-w-[600px] mx-auto mt-2">
       <div className="flex justify-around w-full h-1/2 ">
         <img
           className="w-1/3 p-5 object-contain"
@@ -47,9 +50,11 @@ const UserProfile: React.FC<UserProfileProps> = ({}) => {
           </h1>
         </div>
       </div>
-      <div className=" flex justify-center w-full h-1/2">
-        {/* @ts-ignore */}
-        <Qrcode payload={payload} size={150} />
+      <div className=" flex flex-wrap md:flex-nowrap justify-around w-full mb-10 h-1/2">
+        <div>
+          {/* @ts-ignore */}
+          <Qrcode payload={payload} size={120} />
+        </div>
       </div>
     </div>
   );

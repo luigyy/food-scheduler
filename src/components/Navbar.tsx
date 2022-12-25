@@ -8,9 +8,9 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
     <div className="">
       <div className="flex justify-around navbar bg-neutral text-neutral-content md:px-24">
         <Link to="/">
-          <a className="btn btn-ghost normal-case -tracking-widest text-lg md:text-2xl">
+          <span className="btn btn-ghost normal-case -tracking-widest text-lg md:text-2xl">
             Food Scheduler
-          </a>
+          </span>
         </Link>
         <div className="space-x-5 ">
           <Link to="/readqr">

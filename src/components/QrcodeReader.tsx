@@ -1,33 +1,47 @@
 //@ts-nocheck
 //could manage to get @types/react-qr-reader working properly
 
-import React from "react";
+import React, { useEffect } from "react";
 import QrReader from "react-qr-reader";
 import { useState } from "react";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import Error from "./Error";
 import Loading from "./Loading";
+import axios from "axios";
+import Success from "./Success";
 
 interface QrcodeReaderProps {}
 
+const FIRST_MEAL_URL = "http://localhost:5000/firstmeal";
+const SECOND_MEAL_URL = "http://localhost:5000/secondmeal";
+
 const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
+  //
   const [selected, setSelected] = useState("environment");
   const [startScan, setStartScan] = useState(false);
   const [loadingScan, setLoadingScan] = useState(false);
   const [meal, setMeal] = useState<"First" | "Second" | null>(null);
-
   const [data, setData] = useState("");
-
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  //
+
+  useEffect(() => {
+    setError("");
+  }, [success]);
+
+  useEffect(() => {
+    setSuccess("");
+  }, [error]);
 
   const handleScan = async (scanData) => {
     console.log(`loaded data data`, scanData);
     if (scanData && scanData !== "") {
-      handleSuccess();
       console.log(`loaded >>>`, scanData);
       setData(scanData);
       setStartScan(false);
       setLoadingScan(false);
+      handleSuccess(scanData);
       // setPrecScan(scanData);
     }
   };
@@ -35,15 +49,26 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
     setError("Error while scanning code");
   };
 
-  const handleSuccess = async () => {
-    //check if data object contains _id field
-    const _id = data._id || null;
-    if (!_id) {
-      return setError("Invalid code. Code must contain proper user data");
+  const handleSuccess = async (scanData: string) => {
+    const splitData = scanData.split(" : ");
+
+    if (splitData[0] !== "id") return setError("Invalid code");
+    //
+    //code valid ->
+    const URL = meal === "First" ? FIRST_MEAL_URL : SECOND_MEAL_URL;
+    console.log("URL " + URL);
+    try {
+      const response = await axios.post(URL, { _id: splitData[1] });
+      console.log(response);
+      const message = "Code successfully scanned!";
+      //display success message
+      setSuccess(message);
+    } catch (err) {
+      console.log(err);
+      return setError(
+        err.response.data.message || "Error while checking code in database"
+      );
     }
-    //data contains user id
-    //check if its a valid id in db
-    //TODO
   };
   //
   return (
@@ -111,7 +136,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
           </div>
         </>
       ) : (
-        <div className="md:pt-32 pt-20 ">
+        <div className="md:pt-24 pb-10 pt-5 ">
           <h1 className="pb-10 text-center text-3xl text-neutral font-bold">
             Which meal are you scanning for
             <span className="text-4xl text-gray-400 text-semibold"> ?</span>
@@ -123,7 +148,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
                   setMeal("First");
                   setError("");
                 }}
-                className={`btn btn-accent m-2 text-2xl ${
+                className={`btn btn-accent m-2 md:text-2xl text-lg ${
                   meal === "First" ? "bg-red-400 hover:bg-red-500" : ""
                 }`}
               >
@@ -140,7 +165,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
                   setMeal("Second");
                   setError("");
                 }}
-                className={`btn btn-accent m-2 text-2xl ${
+                className={`btn btn-accent m-2 md:text-2xl text-lg ${
                   meal === "Second" ? "bg-red-400 hover:bg-red-500" : ""
                 }`}
               >
@@ -158,8 +183,9 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
           <Loading text="Scanning" />
         </p>
       )}
-      {data !== "" ? <p className="">{data}</p> : ""}
+      {/* {data !== "" ? <p className="text-center">{data}</p> : ""} */}
       {error && error.length !== 0 ? <Error text={error} /> : ""}
+      {success && success.length !== 0 ? <Success text={success} /> : ""}
     </div>
   );
 };

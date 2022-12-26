@@ -77,7 +77,9 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
       <div className="w-[60%] flex items-center mx-auto justify-around">
         <div className="text-center p-5">
           <button
-            className={`btn  ${startScan ? "btn-secondary" : "btn-primary"}`}
+            className={`btn huge:text-4xl huge:mt-32   ${
+              startScan ? "btn-secondary" : "btn-primary"
+            }`}
             onClick={() => {
               if (!meal) return setError("You must select a meal time");
               setStartScan(!startScan);
@@ -89,12 +91,16 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
             {startScan ? "Stop Scan" : "Start Scan"}
           </button>
         </div>
-        <div className={`dropdown dropdown-end ${startScan ? "" : "hidden"}`}>
+        <div
+          className={`dropdown huge:mt-32 dropdown-end ${
+            startScan ? "" : "hidden"
+          }`}
+        >
           <label
             tabIndex={0}
             className="btn m-1 md:flex md:justify-around md:w-44"
           >
-            <span className=""> Select camera</span>{" "}
+            <span className="huge:"> Select camera</span>{" "}
             <span className="hidden md:inline">
               {" "}
               <BsFillCameraVideoFill />
@@ -125,7 +131,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
               <li value={"user"}>Front Camera</li>
             </ul>
           </div> */}
-          <div className="w-1/4 min-w-[280px] max-h-full mx-auto ">
+          <div className="w-1/4 min-w-[280px] huge:w-1/2 mt-10 max-h-full mx-auto ">
             <QrReader
               facingMode={selected}
               delay={1000}
@@ -137,9 +143,12 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
         </>
       ) : (
         <div className="md:pt-24 pb-10 pt-5 ">
-          <h1 className="pb-10 text-center text-3xl text-neutral font-bold">
+          <h1 className="pb-10 text-center text-3xl huge:text-6xl text-neutral font-bold">
             Which meal are you scanning for
-            <span className="text-4xl text-gray-400 text-semibold"> ?</span>
+            <span className="text-4xl huge:text-7xl text-gray-400 text-semibold">
+              {" "}
+              ?
+            </span>
           </h1>
           <div className="mx-auto flex flex-wrap justify-around  text-center w-[60%] text-3xl text-neutral font-bold">
             <div className="flex flex-col">
@@ -148,7 +157,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
                   setMeal("First");
                   setError("");
                 }}
-                className={`btn btn-accent m-2 md:text-2xl text-lg ${
+                className={`btn btn-accent m-2 md:text-2xl huge:text-4xl text-lg ${
                   meal === "First" ? "bg-red-400 hover:bg-red-500" : ""
                 }`}
               >
@@ -165,7 +174,7 @@ const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
                   setMeal("Second");
                   setError("");
                 }}
-                className={`btn btn-accent m-2 md:text-2xl text-lg ${
+                className={`btn btn-accent m-2 md:text-2xl huge:text-4xl text-lg ${
                   meal === "Second" ? "bg-red-400 hover:bg-red-500" : ""
                 }`}
               >

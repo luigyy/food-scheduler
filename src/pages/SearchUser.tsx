@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import UserBadge from "../components/UserBadge";
 import UserInterface from "../Interfaces/UserInterface";
+import URLS from "../components/config";
 
 interface SearchUserProps {}
 
-const URL = "http://localhost:5000/getuserbyname/";
+const { GET_USER_BYNAME } = URLS;
 
 const SearchUser: React.FC<SearchUserProps> = ({}) => {
   const [name, setName] = useState<string>();
@@ -18,7 +19,7 @@ const SearchUser: React.FC<SearchUserProps> = ({}) => {
   //get users
   const getUsersByName = (name: any): void => {
     axios
-      .get(URL + name)
+      .get(GET_USER_BYNAME + name)
       .then((res) => {
         setUsers(res.data.data.userData);
         setError(false);

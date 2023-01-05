@@ -4,8 +4,9 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import UserInterface from "../Interfaces/UserInterface";
 import Qrcode from "../components/Qrcode";
 import Success from "../components/Success";
+import URLS from "../components/config";
 
-const URL = "http://localhost:5000/getuserbyid/";
+const { GET_USER_BYID } = URLS;
 const PROFILE_IMAGE_PLACEHOLDER =
   "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
 
@@ -21,7 +22,7 @@ const UserProfile: React.FC<UserProfileProps> = ({}) => {
   //get user from db
   useEffect(() => {
     const getUser = async (id: string) => {
-      const response = await axios(URL + id);
+      const response = await axios(GET_USER_BYID + id);
       setUser(response.data.data.userData[0]);
     };
     getUser(id!).catch((err) => {

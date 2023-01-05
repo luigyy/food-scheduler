@@ -9,11 +9,11 @@ import Error from "./Error";
 import Loading from "./Loading";
 import axios from "axios";
 import Success from "./Success";
+import URLS from "./config";
 
 interface QrcodeReaderProps {}
 
-const FIRST_MEAL_URL = "http://localhost:5000/firstmeal";
-const SECOND_MEAL_URL = "http://localhost:5000/secondmeal";
+const { POST_FIRST_MEAL, POST_SECOND_MEAL } = URLS;
 
 const QrcodeReader: React.FC<QrcodeReaderProps> = ({}) => {
   //

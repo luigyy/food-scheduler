@@ -1,4 +1,5 @@
 import React from "react";
+import  {Link} from 'react-router-dom'
 
 interface MainProps {}
 
@@ -14,7 +15,12 @@ const Main: React.FC<MainProps> = ({}) => {
             Track your users without having to do it manually. Just give them a
             custom QR code and let the app do the rest!
           </p>
+
+          <Link to='/readqr'>
+
+
           <button className="btn huge:text-xl btn-primary">Get Started</button>
+          </Link>
         </div>
       </div>
     </div>
